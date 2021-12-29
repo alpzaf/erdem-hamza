@@ -2,14 +2,6 @@
     scroll-behavior: smooth;
 }
 
-:root{
-    --bg-5: url('../img/bg-5.png');
-    --bg-4: url('../img/bg-4.png');
-    --bg-3: url('../img/bg-3.png');
-    --bg-2: url('../img/bg-2.png');
-    --bg-map: url('../img/bg-map.png')
-}
-
 @media (max-width:576px) {
     .py-xs-4{
         padding-top: 1.5rem !important;
@@ -96,6 +88,14 @@ h1{
     z-index: 55;
 }
 
+.top-bar{
+    top: 0;
+}
+
+.bottom-bar{
+    bottom: 0;
+}
+
 .lh-1{
     line-height: 1;
 }
@@ -120,14 +120,8 @@ h1{
     min-height: 100vh;
 }
 
-.top-bar{
-    top: 0;
-}
 
-.bottom-bar{
-    bottom: 0;
-}
-
+/* VIDEO */
 .video-bg{
     position: absolute;
     height: 100%;
