@@ -84,5 +84,18 @@ export default {
       Map,
     };
   },
+  mounted() {
+    document.title = "Contact | ERDEM HAMZA";
+  },
 };
 </script>
+
+<style>
+.a-black {
+  color: #000 !important;
+}
+
+.a-black a {
+  color: #000 !important;
+}
+</style>

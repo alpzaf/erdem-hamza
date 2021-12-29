@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bottom-bar d-flex justify-content-between w-100 px-5 py-5 px-xs-4 py-xs-4"
+    class="bottom-bar d-flex justify-content-between w-100 px-4 py-3 px-lg-5 py-lg-4"
   >
     <div>
       <router-link to="/contact" class="text-white responsive-fs"

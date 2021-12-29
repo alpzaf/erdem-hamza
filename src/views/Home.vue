@@ -41,5 +41,8 @@ export default {
       Logo,
     };
   },
+  mounted() {
+    document.title = "ERDEM HAMZA";
+  },
 };
 </script>

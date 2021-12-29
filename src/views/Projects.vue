@@ -1,86 +1,116 @@
 <template>
-  <section class="w-100 h-100">
+  <section class="w-100 h-100 h-xs-auto">
     <NavigationTop />
     <NavigationBottom />
 
     <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projects"
-        :key="project.id"
-        :style="{ backgroundImage: `url(${project.image})` }"
-        class="col-lg-6 bg-5 has-background d-flex justify-content-center align-items-center h-100"
+        v-for="a in firstTwo(projects)"
+        :key="uid(a)"
+        :style="{ backgroundImage: `url(${a.image})` }"
+        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            a.title
+          }}</a>
         </div>
         <router-link
-          :to="{ name: 'Project', params: { id: project.id } }"
+          :to="{ name: 'Project', params: { id: a.id } }"
           class="r-links"
         ></router-link>
       </div>
     </div>
-    <!--
-    <div class="row no-gutters w-100 page">
+    <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projectGrid4"
-        :key="uid(project)"
-        :style="{ backgroundImage: `url(${project.src})` }"
-        class="col-lg-6 bg-5 has-background d-flex justify-content-center align-items-center h-50"
+        v-for="b in firstFour(projects)"
+        :key="uid(b)"
+        :style="{ backgroundImage: `url(${b.image})` }"
+        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-50 h-xs-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            b.title
+          }}</a>
         </div>
+        <router-link
+          :to="{ name: 'Project', params: { id: b.id } }"
+          class="r-links"
+        ></router-link>
       </div>
     </div>
-    <div class="row no-gutters w-100 page">
+    <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projectGrid22"
-        :key="uid(project)"
-        :style="{ backgroundImage: `url(${project.src})` }"
-        class="col-lg-6 bg-5 has-background d-flex justify-content-center align-items-center h-100"
+        v-for="c in secondTwo(projects)"
+        :key="uid(c)"
+        :style="{ backgroundImage: `url(${c.image})` }"
+        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            c.title
+          }}</a>
         </div>
+        <router-link
+          :to="{ name: 'Project', params: { id: c.id } }"
+          class="r-links"
+        ></router-link>
       </div>
     </div>
-    <div class="row no-gutters w-100 page">
+    <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projectGrid44"
-        :key="uid(project)"
-        :style="{ backgroundImage: `url(${project.src})` }"
-        class="col-lg-6 bg-5 has-background d-flex justify-content-center align-items-center h-50"
+        v-for="d in secondFour(projects)"
+        :key="uid(d)"
+        :style="{ backgroundImage: `url(${d.image})` }"
+        class="col-lg-6 col-12 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-50 h-xs-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            d.title
+          }}</a>
         </div>
+        <router-link
+          :to="{ name: 'Project', params: { id: d.id } }"
+          class="r-links"
+        ></router-link>
       </div>
     </div>
-    <div class="row no-gutters w-100 page">
+    <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projectGrid222"
-        :key="uid(project)"
-        :style="{ backgroundImage: `url(${project.src})` }"
-        class="col-lg-6 bg-5 has-background d-flex justify-content-center align-items-center h-100"
+        v-for="e in thirdTwo(projects)"
+        :key="uid(e)"
+        :style="{ backgroundImage: `url(${e.image})` }"
+        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            e.title
+          }}</a>
         </div>
+        <router-link
+          :to="{ name: 'Project', params: { id: e.id } }"
+          class="r-links"
+        ></router-link>
       </div>
     </div>
-    <div class="row no-gutters w-100 page">
+    <div class="row no-gutters w-100 h-100 page">
       <div
-        v-for="project in projectGrid1"
-        :key="uid(project)"
-        :style="{ backgroundImage: `url(${project.src})` }"
-        class="col-lg-12 bg-5 has-background d-flex justify-content-center align-items-center h-100"
+        v-for="f in single(projects)"
+        :key="uid(f)"
+        :style="{ backgroundImage: `url(${f.image})` }"
+        class="col-lg-12 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
       >
         <div>
-          <a href="#" class="text-white h4">{{ project.title }}</a>
+          <a href="#" class="text-white h4 responsive-fs_project">{{
+            f.title
+          }}</a>
         </div>
+        <router-link
+          :to="{ name: 'Project', params: { id: f.id } }"
+          class="r-links"
+        ></router-link>
       </div>
     </div>
-    -->
   </section>
 </template>
 
@@ -97,109 +127,52 @@ export default {
       this.$set(e, "uid", key);
       return e.uid;
     },
+    firstTwo(arr) {
+      return arr.slice(0, 2);
+    },
+    firstFour(arr) {
+      return arr.slice(2, 6);
+    },
+    secondTwo(arr) {
+      return arr.slice(6, 8);
+    },
+    secondFour(arr) {
+      return arr.slice(8, 12);
+    },
+    thirdTwo(arr) {
+      return arr.slice(12, 14);
+    },
+    single(arr) {
+      return arr.slice(14, 15);
+    },
+  },
+  mounted() {
+    document.title = "Projects | ERDEM HAMZA";
   },
   data() {
     return {
       projectId: this.$route.params.id,
       projects: Data,
-      projectGrid2: [
-        {
-          id: 1,
-          title: "Wu Bomonti",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/wu-bomonti/wu-bomonti-1.jpg",
-        },
-        {
-          id: 2,
-          title: "Üst Kat Kuruçeşme",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/ust-kat-kurucesme/ust-kat-kurucesme-1.jpg",
-        },
-      ],
-
-      projectGrid4: [
-        {
-          id: 3,
-          title: "The House Cafe Istiklal",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/the-house-cafe-istiklal/the-house-cafe-istiklal-1.jpg",
-        },
-        {
-          id: 4,
-          title: "Suadiye Residence",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/suadiye-residence/suadiye-residence-1.jpg",
-        },
-        {
-          id: 5,
-          title: "Soho Residence",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/soho-residence/soho-residence-1.jpg",
-        },
-        {
-          id: 6,
-          title: "Shopigo No 62",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/shopigo-no-62/shopigo-no-62-1.jpg",
-        },
-      ],
-
-      projectGrid22: [
-        {
-          id: 7,
-          title: "Pero Yeniköy",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/pero-yenikoy/pero-yenikoy-1.jpg",
-        },
-        {
-          id: 8,
-          title: "Karaköy Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/karakoy-project/karakoy-project-1.jpg",
-        },
-      ],
-
-      projectGrid44: [
-        {
-          id: 9,
-          title: "Kabataş Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/kabatas-project/kabatas-project-1.jpg",
-        },
-        {
-          id: 10,
-          title: "Gökçeada Residence Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/gokceada-residence-project/gokceada-residence-project-1.jpg",
-        },
-        {
-          id: 11,
-          title: "Gayrettepe Residence Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/gayrettepe-residence-project/gayrettepe-residence-project-1.jpg",
-        },
-        {
-          id: 12,
-          title: "Etiler Residence Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/etiler-residence-project/etiler-residence-project-1.jpg",
-        },
-      ],
-
-      projectGrid222: [
-        {
-          id: 13,
-          title: "Bodrum Residence Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/bodrum-residence-project/bodrum-residence-project-1.jpg",
-        },
-        {
-          id: 14,
-          title: "BKM Mutfak Uniq",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/bkm-mutfak-uniq/bkm-mutfak-uniq-1.jpg",
-        },
-      ],
-
-      projectGrid1: [
-        {
-          id: 15,
-          title: "Bebek Residence Project",
-          src: "https://demo.maharethane.com/erdem-hamza8/projects/bebek-residence-project/bebek-residence-project-1.jpg",
-        },
-      ],
     };
   },
 };
 </script>
 
 <style scoped>
+@media (max-width: 576px) {
+  .h-xs-auto {
+    height: auto !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 1024px) {
+  .h-xs-auto {
+    height: auto !important;
+  }
+  .hv-xs-100 {
+    height: 100vh !important;
+  }
+}
 .fullpage-container {
   position: absolute;
   left: 0;
@@ -223,5 +196,7 @@ html {
   position: absolute;
   width: 100%;
   height: 100%;
+  cursor: url("https://demo.maharethane.com/erdem-hamza8/img/view-project-100.png"),
+    auto;
 }
 </style>

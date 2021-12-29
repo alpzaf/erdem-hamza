@@ -7,9 +7,7 @@
         <div
           class="has-background d-flex align-items-center justify-content-center hv-100"
           :style="{ backgroundImage: `url(${image.src})` }"
-        >
-          <div v-if="sources.indexOf() == -1">title</div>
-        </div>
+        ></div>
       </div>
     </carousel>
     <!-- <button class="next-btn slick-arrow"></button> -->
@@ -32,6 +30,9 @@ export default {
       sources: {},
     };
   },
+  mounted() {
+    document.title = "Project | ERDEM HAMZA";
+  },
   computed: {
     destination() {
       return Data.find((destination) => (destination.id = this.projectId));
@@ -45,6 +46,15 @@ export default {
 </script>
 
 <style>
+@media (max-width: 576px) {
+  .owl-prev,
+  .owl-next {
+    top: 53% !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
 .owl-theme .owl-nav {
   margin: 0 !important;
 }
