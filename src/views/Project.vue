@@ -21,7 +21,6 @@
 import carousel from "vue-owl-carousel";
 import NavigationBottom from "../components/NavigationBottom.vue";
 import NavigationProject from "../components/NavigationProject.vue";
-// import Data from "../db.json";
 export default {
   components: { NavigationBottom, NavigationProject, carousel },
   data() {
@@ -33,11 +32,6 @@ export default {
   },
   mounted() {
     document.title = "Project | ERDEM HAMZA";
-  },
-  computed: {
-    // destination() {
-    //   return Data.find((destination) => (destination.id = this.projectId));
-    // },
   },
   async created() {
     try {
