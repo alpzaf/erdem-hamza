@@ -2,11 +2,13 @@
   <section id="section" class="w-100 h-100">
     <NavigationProject />
     <!-- <button class="prev-btn slick-arrow"></button> -->
-    <carousel :items="1" :dots="false">
+    <carousel :items="1" :dots="false" v-if="sources.length > 0">
       <div v-for="image in sources" :key="image.id">
         <div
           class="has-background d-flex align-items-center justify-content-center hv-100"
-          :style="{ backgroundImage: `url(${image.src})` }"
+          :style="{
+            backgroundImage: `url(http://www.erdemhamza.com.tr/storage/projects/${image.name})`,
+          }"
         ></div>
       </div>
     </carousel>
@@ -19,13 +21,12 @@
 import carousel from "vue-owl-carousel";
 import NavigationBottom from "../components/NavigationBottom.vue";
 import NavigationProject from "../components/NavigationProject.vue";
-import Data from "../db.json";
+// import Data from "../db.json";
 export default {
   components: { NavigationBottom, NavigationProject, carousel },
   data() {
     return {
       title: "",
-      Data,
       projectId: this.$route.params.id,
       sources: {},
     };
@@ -34,13 +35,28 @@ export default {
     document.title = "Project | ERDEM HAMZA";
   },
   computed: {
-    destination() {
-      return Data.find((destination) => (destination.id = this.projectId));
-    },
+    // destination() {
+    //   return Data.find((destination) => (destination.id = this.projectId));
+    // },
   },
-  created() {
-    let projectIndex = Number(this.projectId) - 1;
-    this.sources = JSON.parse(JSON.stringify(this.Data[projectIndex].images));
+  async created() {
+    try {
+      const response = await fetch(
+        "http://admin.erdemhamza.com.tr/api/projects"
+      );
+      const data = await response.json();
+      if (window.innerWidth > 767) {
+        this.sources = JSON.parse(
+          JSON.stringify(data.data[this.projectId - 2].desktopImages)
+        );
+      } else {
+        this.sources = JSON.parse(
+          JSON.stringify(data.data[this.projectId - 2].mobileImages)
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>
@@ -49,7 +65,7 @@ export default {
 @media (max-width: 576px) {
   .owl-prev,
   .owl-next {
-    top: 53% !important;
+    top: 50% !important;
     width: 40px !important;
     height: 40px !important;
   }
@@ -63,6 +79,7 @@ export default {
   position: absolute;
   color: transparent !important;
   background: transparent !important;
+  border-radius: none !important;
 }
 .owl-prev {
   left: 10%;
@@ -94,7 +111,6 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  /* box-shadow: inset 0px 0px 20px 20px #000000ab; */
   transition: all 200ms;
 }
 

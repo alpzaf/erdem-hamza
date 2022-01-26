@@ -1,112 +1,24 @@
 <template>
-  <section class="w-100 h-100 h-xs-auto">
+  <section class="w-100 h-md-100 h-xs-100">
     <NavigationTop />
     <NavigationBottom />
 
-    <div class="row no-gutters w-100 h-100 page">
+    <div class="row no-gutters w-100 h-xs-100 h-md-100 page">
       <div
         v-for="a in firstTwo(projects)"
         :key="uid(a)"
-        :style="{ backgroundImage: `url(${a.image})` }"
-        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
+        :style="{
+          backgroundImage: `url(http://www.erdemhamza.com.tr/storage/projects/${a.desktop_picture})`,
+        }"
+        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 h-xs-100 h-md-100"
       >
         <div>
           <a href="#" class="text-white h4 responsive-fs_project">{{
-            a.title
+            a.name
           }}</a>
         </div>
         <router-link
           :to="{ name: 'Project', params: { id: a.id } }"
-          class="r-links"
-        ></router-link>
-      </div>
-    </div>
-    <div class="row no-gutters w-100 h-100 page">
-      <div
-        v-for="b in firstFour(projects)"
-        :key="uid(b)"
-        :style="{ backgroundImage: `url(${b.image})` }"
-        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-50 h-xs-100 hv-xs-100"
-      >
-        <div>
-          <a href="#" class="text-white h4 responsive-fs_project">{{
-            b.title
-          }}</a>
-        </div>
-        <router-link
-          :to="{ name: 'Project', params: { id: b.id } }"
-          class="r-links"
-        ></router-link>
-      </div>
-    </div>
-    <div class="row no-gutters w-100 h-100 page">
-      <div
-        v-for="c in secondTwo(projects)"
-        :key="uid(c)"
-        :style="{ backgroundImage: `url(${c.image})` }"
-        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
-      >
-        <div>
-          <a href="#" class="text-white h4 responsive-fs_project">{{
-            c.title
-          }}</a>
-        </div>
-        <router-link
-          :to="{ name: 'Project', params: { id: c.id } }"
-          class="r-links"
-        ></router-link>
-      </div>
-    </div>
-    <div class="row no-gutters w-100 h-100 page">
-      <div
-        v-for="d in secondFour(projects)"
-        :key="uid(d)"
-        :style="{ backgroundImage: `url(${d.image})` }"
-        class="col-lg-6 col-12 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-50 h-xs-100 hv-xs-100"
-      >
-        <div>
-          <a href="#" class="text-white h4 responsive-fs_project">{{
-            d.title
-          }}</a>
-        </div>
-        <router-link
-          :to="{ name: 'Project', params: { id: d.id } }"
-          class="r-links"
-        ></router-link>
-      </div>
-    </div>
-    <div class="row no-gutters w-100 h-100 page">
-      <div
-        v-for="e in thirdTwo(projects)"
-        :key="uid(e)"
-        :style="{ backgroundImage: `url(${e.image})` }"
-        class="col-lg-6 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
-      >
-        <div>
-          <a href="#" class="text-white h4 responsive-fs_project">{{
-            e.title
-          }}</a>
-        </div>
-        <router-link
-          :to="{ name: 'Project', params: { id: e.id } }"
-          class="r-links"
-        ></router-link>
-      </div>
-    </div>
-    <div class="row no-gutters w-100 h-100 page">
-      <div
-        v-for="f in single(projects)"
-        :key="uid(f)"
-        :style="{ backgroundImage: `url(${f.image})` }"
-        class="col-lg-12 col-12 bg-5 has-background d-flex justify-content-center align-items-center h-100 hv-xs-100"
-      >
-        <div>
-          <a href="#" class="text-white h4 responsive-fs_project">{{
-            f.title
-          }}</a>
-        </div>
-        <router-link
-          :to="{ name: 'Project', params: { id: f.id } }"
           class="r-links"
         ></router-link>
       </div>
@@ -117,7 +29,6 @@
 <script>
 import NavigationTop from "../components/NavigationTop.vue";
 import NavigationBottom from "../components/NavigationBottom.vue";
-import Data from "../db.json";
 export default {
   components: { NavigationTop, NavigationBottom },
   methods: {
@@ -148,11 +59,28 @@ export default {
   },
   mounted() {
     document.title = "Projects | ERDEM HAMZA";
+    if (window.innerWidth < 1025) {
+      let heights = document.querySelectorAll(".bg-5");
+      heights.forEach((item) => {
+        item.style.minHeight = window.innerHeight + "px";
+      });
+    }
+  },
+  async created() {
+    try {
+      const response = await fetch(
+        "http://admin.erdemhamza.com.tr/api/projects"
+      );
+      const data = await response.json();
+      this.projects = JSON.parse(JSON.stringify(data.data));
+    } catch (error) {
+      console.log(error);
+    }
   },
   data() {
     return {
       projectId: this.$route.params.id,
-      projects: Data,
+      projects: [],
     };
   },
 };
@@ -172,6 +100,22 @@ export default {
   .hv-xs-100 {
     height: 100vh !important;
   }
+  .h-md-100 {
+    height: 100%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .page {
+    height: 100% !important;
+  }
+  .h-md-100 {
+    height: 100% !important;
+  }
+  section {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+  }
 }
 .fullpage-container {
   position: absolute;
@@ -184,10 +128,6 @@ export default {
   position: relative;
   display: flex;
   scroll-snap-align: center;
-}
-section {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
 }
 html {
   scroll-behavior: smooth;
