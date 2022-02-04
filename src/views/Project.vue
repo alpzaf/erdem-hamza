@@ -2,13 +2,13 @@
   <section id="section" class="w-100 h-100">
     <NavigationProject />
     <!-- <button class="prev-btn slick-arrow"></button> -->
-    <carousel :items="1" :dots="false" v-if="sources.length > 0">
+    <carousel v-if="sources.length > 0" :dots="false" :items="1">
       <div v-for="image in sources" :key="image.id">
         <div
-          class="has-background d-flex align-items-center justify-content-center hv-100"
           :style="{
-            backgroundImage: `url(http://www.erdemhamza.com.tr/storage/projects/${image.name})`,
+            backgroundImage: `url(https://www.erdemhamza.com.tr/storage/projects/${image.name})`,
           }"
+          class="has-background d-flex align-items-center justify-content-center hv-100"
         ></div>
       </div>
     </carousel>
@@ -21,6 +21,7 @@
 import carousel from "vue-owl-carousel";
 import NavigationBottom from "../components/NavigationBottom.vue";
 import NavigationProject from "../components/NavigationProject.vue";
+
 export default {
   components: { NavigationBottom, NavigationProject, carousel },
   data() {
@@ -36,7 +37,7 @@ export default {
   async created() {
     try {
       const response = await fetch(
-        "http://admin.erdemhamza.com.tr/api/projects"
+        "https://admin.erdemhamza.com.tr/api/projects"
       );
       const data = await response.json();
       if (window.innerWidth > 767) {
@@ -68,21 +69,25 @@ export default {
 .owl-theme .owl-nav {
   margin: 0 !important;
 }
+
 .owl-prev,
 .owl-next {
   position: absolute;
   color: transparent !important;
   background: transparent !important;
-  border-radius: none !important;
+  border-radius: 0 !important;
 }
+
 .owl-prev {
   left: 10%;
   transform: rotate(45deg);
 }
+
 .owl-next {
   right: 10%;
   transform: rotate(225deg);
 }
+
 .owl-prev,
 .owl-next {
   top: 43%;

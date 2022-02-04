@@ -6,10 +6,30 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 export default {
   data() {
-    return {};
+    return {
+      inHeight: document.querySelector("body"),
+      wHeight: window.innerHeight,
+      height: 0,
+    };
   },
   mounted() {
     document.title = "Anasayfa | ERDEM HAMZA";
+    this.height = window.innerHeight;
+  },
+  methods: {
+    resizeHandler() {
+      this.height = window.innerHeight;
+      document.querySelector("body").style.height = this.height + "px";
+    },
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
+    window.addEventListener("DOMContentLoaded", this.resizeHandler, {
+      once: true,
+    });
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeHandler);
   },
 };
 </script>
@@ -35,6 +55,7 @@ export default {
 
 body {
   font-family: Everett-Regular;
+  transition: all 300ms ease;
 }
 
 #nav {
@@ -103,8 +124,7 @@ body {
 
 body {
   font-family: Everett-Regular;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 }
 
 a,
